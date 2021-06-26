@@ -14,19 +14,22 @@
     ["Transition Metal", "#ffb7c2"],
     ["Lanthanide", "#ffc0ff"],
     ["Actinide", "#ff9acd"],
-    ["Transactinide", "#8c73b2"]
+    ["Transactinide", "#8c73b2"],
+    ["Unknown", "#f5f5f5"]
   ])
 </script>
 
-<div style={`
-  color: ${type.get(element.type)};
-`}>
-  <span class="symbol">{element.symbol}</span>
-  <span class="element">{element.element}</span>
-  <span class="number">atomic number: {element.atomicNumber}</span>
-  <span class="mass">mass: {element.atomicMass}</span>
-  <span class="class">period: {element.period}, group: {element.group}</span>
-</div>
+{#if !element.dontShow}
+  <div style={`
+    color: ${type.get(element.type)};
+  `}>
+    <span class="symbol">{element.symbol}</span>
+    <span class="element">{element.element}</span>
+    <span class="number">atomic number: {element.atomicNumber}</span>
+    <span class="mass">mass: {element.atomicMass}</span>
+    <span class="class">period: {element.period}, group: {element.group}</span>
+  </div>
+{/if}
 
 <style>
   div {

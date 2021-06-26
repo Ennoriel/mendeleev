@@ -14,13 +14,16 @@
     ["Transition Metal", "#ffb7c2"],
     ["Lanthanide", "#ffc0ff"],
     ["Actinide", "#ff9acd"],
-    ["Transactinide", "#8c73b2"]
+    ["Transactinide", "#8c73b2"],
+    ["Unknown", "#eee"]
   ])
 
   const filterName = (name: string): string => name.length >= 11 ? name.substring(0, name.length - 3) + '.' : name
 </script>
 
-<div 
+<button
+  disabled={element.dontShow}
+  class:dontShow={element.dontShow}
   style={`
     grid-area: e${element.period}-${element.group};
     color: ${type.get(element.type)};
@@ -30,10 +33,14 @@
   <span class="atomicNumber">{element.atomicNumber}</span>
   <span class="symbol">{element.symbol}</span>
   <span class="atomicMass">{element.atomicMass}</span>
-</div>
+</button>
 
 <style>
-  div {
+  .dontShow {
+    opacity: 0.2;
+    cursor: default;
+  }
+  button {
     display: grid;
     grid-template-columns: 100%;
     grid-template-areas:
@@ -45,6 +52,7 @@
     color: "#222";
     background-color: white;
     box-sizing: content-box;
+    border: none;
     border-top: 4px solid currentColor;
     transition: all 0.1s;
     box-shadow: 0 0 1px 0 #CCC;
@@ -52,7 +60,7 @@
     transition: background-color 0.6s, box-shadow 0.3s;
     cursor: pointer;
   }
-  div:hover {
+  button:not(.dontShow):hover {
     box-shadow: 0 0 5px 0 #444;
     background-color: currentColor;
   }

@@ -1,17 +1,26 @@
 <script lang="ts">
   import type { Element as ElementType } from "../types/Element.type";
-  import { default as data } from '../elements.json'; 
+  import { default as rawElements } from '../elements.json'; 
   import GridElement from "./GridElement.svelte";
   import ListElement from "./ListElement.svelte";
-	
-  export let display
+	import { store } from '$lib/store'
   
-  let elements: ElementType[] = data;
+  let elements: ElementType[] = rawElements;
+
+  $: {
+    let searchRe = new RegExp($store.search)
+    elements.forEach(el => el.dontShow =
+        ($store.type && $store.type !== el.type) ||
+        ($store.phase && $store.phase !== el.phase) ||
+        ($store.search && !searchRe.test(el.element) && !searchRe.test(el.symbol))
+    )
+    elements = elements
+  }
 </script>
 
-<div id="table" class={display}>
+<div id="table" class={$store.display}>
   {#each elements as element}
-    {#if display === "grid"}
+    {#if $store.display === "grid"}
       <GridElement {element}/>
     {:else}
       <ListElement {element}/>

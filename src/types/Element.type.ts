@@ -26,5 +26,7 @@ export type Element = {
   year: number | string,
   specificHeat: number | string,
   numberofShells: number,
-  numberofValence: number | string
+  numberofValence: number | string,
+
+  dontShow?: boolean
 };

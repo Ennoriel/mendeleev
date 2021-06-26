@@ -1,13 +1,11 @@
-<script>
-  export let click
+<script lang="ts">
+	import { store } from '$lib/store'
 </script>
 
-<button on:click={click}>
-  <slot/>
-</button>
+<input type="text" bind:value={$store.search} Placeholder="Search..."/>
 
 <style>
-  button {
+  input {
     display: flex;
     align-items: center;
     border: 2px solid var(--color-main);
@@ -16,12 +14,6 @@
     height: 38px;
     border-radius: 8px;
     transition: box-shadow .4s;
-    cursor: pointer;
-
     box-sizing: border-box;
-  }
-
-  button:hover {
-    box-shadow: 0 0 3px 1px var(--color-main);
   }
 </style>
