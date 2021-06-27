@@ -29,6 +29,9 @@
 </div>
 
 <style>
+  #table {
+    margin: 10px 0 20px;
+  }
   #table.grid {
     width: 100%;
     display: grid;

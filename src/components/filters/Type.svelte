@@ -28,7 +28,7 @@
 
 <style>
   div {
-    min-width: 200px;
+    min-width: 160px;
 
     --height: 34px;
     --borderRadius: 8px;
@@ -40,5 +40,18 @@
     --clearSelectRight: 7px;
     --clearSelectHoverColor: var(--color-main);
     --listBorderRadius: 8px;
+  }
+
+  @media(max-width: 600px) {
+    div {
+      --inputPadding: 0 8px;
+      --inputFontSize: 12px;
+      font-size: 12px;
+      min-width: 120px;
+    }
+  }
+
+  :global(.focused) {
+    box-shadow: 0 0 0 2px #0061df;
   }
 </style>

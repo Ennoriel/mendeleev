@@ -21,6 +21,12 @@
     box-sizing: border-box;
   }
 
+  @media(max-width: 600px) {
+    button {
+      font-size: 12px;
+    }
+  }
+
   button:hover {
     box-shadow: 0 0 3px 1px var(--color-main);
   }

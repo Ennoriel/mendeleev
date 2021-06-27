@@ -3,10 +3,17 @@
 
 	import Button from "./Button.svelte";
 	import Phase from './filters/Phase.svelte';
-import Search from './filters/Search.svelte';
+	import Search from './filters/Search.svelte';
 	import Type from './filters/Type.svelte';
-	import Icon from "./Icon.svelte";
 </script>
+
+<nav>
+	<Search/>
+	<Type/>
+	<Phase/>
+	<span class:hide={$store.display === "grid"}><Button click={() => $store.display = "grid"}>Table</Button></span>
+	<span class:hide={$store.display === "list"}><Button click={() => $store.display = "list"}>List</Button></span>
+</nav>
 
 <style>
 	nav {
@@ -24,12 +31,10 @@ import Search from './filters/Search.svelte';
 		align-items: center;
 		margin: 0;
 	}
-</style>
 
-<nav>
-	<Search/>
-	<Type/>
-	<Phase/>
-	<Button click={() => $store.display = "grid"}>Table <Icon name="grid"/></Button>
-	<Button click={() => $store.display = "list"}><Icon name="list"/> List</Button>
-</nav>
+	@media(max-width: 600px) {
+		.hide {
+			display: none;
+		}
+	}
+</style>

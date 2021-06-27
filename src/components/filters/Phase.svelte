@@ -33,4 +33,13 @@
     --clearSelectHoverColor: var(--color-main);
     --listBorderRadius: 8px;
   }
+
+  @media(max-width: 600px) {
+    div {
+      --inputPadding: 0 8px;
+      --inputFontSize: 12px;
+      font-size: 12px;
+      min-width: 80px;
+    }
+  }
 </style>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Element } from "../types/Element.type";
+  import HighlightSearch from "./HighlightSearch.svelte";
 
   export let element: Element;
 
@@ -20,19 +21,20 @@
 </script>
 
 {#if !element.dontShow}
-  <div style={`
-    color: ${type.get(element.type)};
-  `}>
-    <span class="symbol">{element.symbol}</span>
-    <span class="element">{element.element}</span>
+  <a
+    href={`/${element.symbol}`}
+    style={`color: ${type.get(element.type)};`}
+  >
+    <span class="symbol"><HighlightSearch value={element.symbol}/></span>
+    <span class="element"><HighlightSearch value={element.element}/></span>
     <span class="number">atomic number: {element.atomicNumber}</span>
     <span class="mass">mass: {element.atomicMass}</span>
     <span class="class">period: {element.period}, group: {element.group}</span>
-  </div>
+  </a>
 {/if}
 
 <style>
-  div {
+  a {
     display: grid;
     grid-template-columns: 50px 1fr 1fr;
     grid-template-areas: 
@@ -41,12 +43,10 @@
     ;
     align-items: center;
     padding: .5em .3em;
-    padding-left: calc(0.3em + 4px);
     margin: .3em .3em .3em calc(.3em + 5px);
     background-color: white;
     box-sizing: content-box;
-    border-left: 0 solid currentColor;
-    border-top: 4px solid currentColor;
+    border-left: 12px solid currentColor;
     transition: all 0.1s;
     box-shadow: 0 0 1px 0 #CCC;
     border-radius: 3px;
@@ -54,10 +54,8 @@
     cursor: pointer;
   }
 
-  div:hover {
-    box-shadow: 0 0 3px 1px #666;
-    padding-left: calc(0.3em);
-    border-left: 4px solid currentColor;
+  a:hover, a:focus {
+    box-shadow: 0 0 12px 1px #AAA;
   }
 
   span {
@@ -66,9 +64,7 @@
   }
 
   @media(min-width: 500px) {
-    div {
-      /* display: flex;
-      justify-content: space-around; */
+    a {
       grid-template-columns: 50px auto auto auto auto;
       grid-template-areas: 
         "symbol element mass number class"

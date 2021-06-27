@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Element } from "../types/Element.type";
+  import HighlightSearch from "./HighlightSearch.svelte";
 
   export let element: Element;
 
@@ -21,7 +22,8 @@
   const filterName = (name: string): string => name.length >= 11 ? name.substring(0, name.length - 3) + '.' : name
 </script>
 
-<button
+<a
+  href={`/${element.symbol}`}
   disabled={element.dontShow}
   class:dontShow={element.dontShow}
   style={`
@@ -29,18 +31,18 @@
     color: ${type.get(element.type)};
   `}
 >
-  <span class="element">{filterName(element.element)}</span>
+  <span class="element"><HighlightSearch value={filterName(element.element)}/></span>
   <span class="atomicNumber">{element.atomicNumber}</span>
   <span class="symbol">{element.symbol}</span>
   <span class="atomicMass">{element.atomicMass}</span>
-</button>
+</a>
 
 <style>
   .dontShow {
     opacity: 0.2;
     cursor: default;
   }
-  button {
+  a {
     display: grid;
     grid-template-columns: 100%;
     grid-template-areas:
@@ -59,8 +61,9 @@
     border-radius: 3px;
     transition: background-color 0.6s, box-shadow 0.3s;
     cursor: pointer;
+    padding-bottom: 4px;
   }
-  button:not(.dontShow):hover {
+  a:not(.dontShow):hover, a:not(.dontShow):focus {
     box-shadow: 0 0 5px 0 #444;
     background-color: currentColor;
   }
@@ -74,7 +77,6 @@
     font-size: 10px;
   }
   .atomicNumber {
-    /* display: none; */
     grid-area: atomicNumber;
   }
   .symbol {
@@ -89,7 +91,10 @@
 
   }
 
-  @media(min-width: 1100px) {
+  @media(min-width: 950px) {
+    a {
+      padding-bottom: 1px;
+    }
     .element, .atomicMass {
       display: inline;
     }

@@ -1,14 +1,4 @@
-<script lang="ts">
-	import Nav from '../components/Nav.svelte';
-</script>
-
-<Nav/>
-
-<main>
-	<div>
-		<slot/>
-	</div>
-</main>
+<slot/>
 
 <style>
 	:global(*) {
@@ -22,6 +12,12 @@
 		--color-main: rgb(255,62,0);
 	}
 
+	:global(html),
+	:global(body) {
+		height: 100vh;
+		overflow: hidden;
+	}
+
 	:global(body),
 	:global(input),
 	:global(button) {
@@ -32,25 +28,8 @@
 		color: #333;
 	}
 
-	main {
-		background-color: #fff6f6;
-		height: calc(100vh - var(--nav-height));
-		margin-top: calc(var(--nav-height));
-		padding-top: 5px;
-		box-sizing: border-box;
-		
-		overflow-y: auto;
-		scrollbar-color: rgb(255, 62, 0) #fff6f6;
-	}
-
-	div {
-		width: 100%;
-		margin: auto;
-	}
-	@media (min-width: 600px) {
-		div {
-			max-width: 1000px;
-			width: calc(66.66% + 200px)
-		}
+	:global(a) {
+		text-decoration: none;
+		color: var(--color-main)
 	}
 </style>
