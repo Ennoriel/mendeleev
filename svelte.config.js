@@ -7,10 +7,13 @@ const config = {
 	kit: {
 		adapter: adapter({
 			pages: 'build',
-			assets: 'build',
 			fallback: null
 		}),
-		target: '#svelte'
+		target: '#svelte',
+		paths: {
+			base: '/mendeleev',
+			assets: '/mendeleev'
+		},
 	}
 };
 
