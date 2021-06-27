@@ -79,17 +79,29 @@
   }
   .atomicNumber {
     grid-area: atomicNumber;
+    font-size: 9px;
   }
   .symbol {
     grid-area: symbol;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 14px;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 12px;
   }
   .atomicMass {
     display: none;
     grid-area: atomicMass;
 
+  }
+
+  @media(min-width: 450px) {
+    .atomicNumber {
+      font-size: 10px;
+    }
+    .symbol {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 14px;
+    }
   }
 
   @media(min-width: 950px) {

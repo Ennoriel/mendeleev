@@ -14,14 +14,13 @@
 
 <style>
 	main {
-		background-color: #fff6f6;
+		background-color: #fcfbf4;
 		height: calc(100vh - var(--nav-height));
 		margin-top: calc(var(--nav-height));
 		padding-top: 5px;
 		box-sizing: border-box;
 		
 		overflow-y: auto;
-		scrollbar-color: rgb(255, 62, 0) #fff6f6;
 	}
 
 	div {

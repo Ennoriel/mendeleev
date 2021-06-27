@@ -75,15 +75,15 @@
 
 <style>
   .card {
-    box-shadow: 0 0 25px #DDD;
-    width: 50%;
-    max-width: 400px;
-    padding: 10px;
-    border-radius: 60px 20px 20px 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+      border-radius: 60px 20px 20px 20px;
+      box-shadow: 0 0 25px #DDD;
+      padding: 10px;
+      width: calc(100% - 40px);
+      max-width: 450px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      overflow-y: auto;
   }
   span {
     display: block;

@@ -1,15 +1,25 @@
 <slot/>
 
 <style>
-	:global(*) {
-		scrollbar-width: thin;
-		scrollbar-color: rgb(255, 62, 0) white;
-		font-weight: 300;
-	}
-
 	:global(html) {
 		--nav-height: 60px;
 		--color-main: rgb(255,62,0);
+	}
+
+	:global(*) {
+		scrollbar-width: thin;
+		scrollbar-color: var(--color-main) #fcfbf4;
+		font-weight: 300;
+	}
+	
+	:global(*::-webkit-scrollbar-track) {
+		background: #fcfbf4;
+	}
+	:global(*::-webkit-scrollbar-thumb) {
+		background-color: var(--color-main);
+	}
+	:global(*::-webkit-scrollbar) {
+		width: 7px;
 	}
 
 	:global(html),
