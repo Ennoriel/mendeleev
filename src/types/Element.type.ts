@@ -28,5 +28,6 @@ export type Element = {
   numberofShells: number,
   numberofValence: number | string,
 
-  dontShow?: boolean
+  dontShow?: boolean,
+  color: string
 };

@@ -1,41 +1,30 @@
 <script lang="ts">
-  import { base } from '$app/paths';
   import type { Element } from "../types/Element.type";
   import HighlightSearch from "./HighlightSearch.svelte";
+  import Popup from './Popup.svelte';
 
   export let element: Element;
-
-  const type = new Map([
-    ["Nonmetal", "#99fb99"],
-    ["Noble Gas", "#b0efef"],
-    ["Alkali Metal", "#ff6666"],
-    ["Alkaline Earth Metal", "#ffdfae"],
-    ["Metalloid", "#cdcd9a"],
-    ["Halogen", "#ffff9a"],
-    ["Metal", "#d4d4d4"],
-    ["Transition Metal", "#ffb7c2"],
-    ["Lanthanide", "#ffc0ff"],
-    ["Actinide", "#ff9acd"],
-    ["Transactinide", "#8c73b2"],
-    ["Unknown", "#f5f5f5"]
-  ])
+  let popup: Element;
 </script>
 
 {#if !element.dontShow}
-  <a
-    href={`${base}/${element.symbol}/`}
-    style={`color: ${type.get(element.type)};`}
+  <button
+    on:click={() => popup = element}
+    style={`color: ${element.color};`}
   >
     <span class="symbol"><HighlightSearch value={element.symbol}/></span>
     <span class="element"><HighlightSearch value={element.element}/></span>
     <span class="number">atomic number: {element.atomicNumber}</span>
     <span class="mass">mass: {element.atomicMass}</span>
     <span class="class">period: {element.period}, group: {element.group}</span>
-  </a>
+  </button>
+{/if}
+{#if popup}
+  <Popup bind:element={popup}/>
 {/if}
 
 <style>
-  a {
+  button {
     display: grid;
     grid-template-columns: 50px 1fr 1fr;
     grid-template-areas: 
@@ -47,6 +36,7 @@
     margin: .3em .3em .3em calc(.3em + 5px);
     background-color: white;
     box-sizing: content-box;
+    border: none;
     border-left: 12px solid currentColor;
     transition: all 0.1s;
     box-shadow: 0 0 1px 0 #CCC;
@@ -55,7 +45,7 @@
     cursor: pointer;
   }
 
-  a:hover, a:focus {
+  button:hover, button:focus {
     box-shadow: 0 0 12px 1px #AAA;
   }
 
@@ -65,7 +55,7 @@
   }
 
   @media(min-width: 500px) {
-    a {
+    button {
       grid-template-columns: 50px auto auto auto auto;
       grid-template-areas: 
         "symbol element mass number class"

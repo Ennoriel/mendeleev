@@ -2,48 +2,39 @@
   import { base } from '$app/paths';
   import type { Element } from "../types/Element.type";
   import HighlightSearch from "./HighlightSearch.svelte";
+  import Popup from './Popup.svelte';
 
   export let element: Element;
-
-  const type = new Map([
-    ["Nonmetal", "#99fb99"],
-    ["Noble Gas", "#b0efef"],
-    ["Alkali Metal", "#ff6666"],
-    ["Alkaline Earth Metal", "#ffdfae"],
-    ["Metalloid", "#cdcd9a"],
-    ["Halogen", "#ffff9a"],
-    ["Metal", "#d4d4d4"],
-    ["Transition Metal", "#ffb7c2"],
-    ["Lanthanide", "#ffc0ff"],
-    ["Actinide", "#ff9acd"],
-    ["Transactinide", "#8c73b2"],
-    ["Unknown", "#eee"]
-  ])
+  let popup: Element;
 
   const filterName = (name: string): string => name.length >= 11 ? name.substring(0, name.length - 3) + '.' : name
 </script>
 
-<a
-  href={`${base}/${element.symbol}/`}
+<button
+  on:click={() => popup = element}
   disabled={element.dontShow}
   class:dontShow={element.dontShow}
   style={`
     grid-area: e${element.period}-${element.group};
-    color: ${type.get(element.type)};
+    color: ${element.color};
   `}
 >
   <span class="element"><HighlightSearch value={filterName(element.element)}/></span>
   <span class="atomicNumber">{element.atomicNumber}</span>
   <span class="symbol">{element.symbol}</span>
   <span class="atomicMass">{element.atomicMass}</span>
-</a>
+</button>
+{#if popup}
+  <Popup bind:element={popup}/>
+{/if}
+
 
 <style>
   .dontShow {
     opacity: 0.2;
     cursor: default;
   }
-  a {
+  button {
     display: grid;
     grid-template-columns: 100%;
     grid-template-areas:
@@ -64,7 +55,7 @@
     cursor: pointer;
     padding-bottom: 4px;
   }
-  a:not(.dontShow):hover, a:not(.dontShow):focus {
+  button:not(.dontShow):hover, button:not(.dontShow):focus {
     box-shadow: 0 0 5px 0 #444;
     background-color: currentColor;
   }

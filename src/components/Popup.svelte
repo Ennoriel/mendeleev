@@ -1,35 +1,16 @@
-<script context="module" lang="ts">
-  export function load({ page }) {
-		return {
-			props: {
-				symbol: page.params.slug
-			}
-		};
-	}
-
-</script>
-
 <script lang="ts">
   import { base } from '$app/paths';
-  import { onMount } from 'svelte';
   import type { Element as ElementType } from "../types/Element.type";
-  import { default as rawElements } from '../elements.json'; 
-  import { goto } from '$app/navigation';
 
-  export let symbol: string;
-  let element: ElementType;
-
-  onMount(() => {
-    element = rawElements.find(el => el.symbol === symbol)
-    if (!element) goto('/')
-  })
+  export let element: ElementType;
 </script>
 
-<a href={`${base}/`}>Go back to the table</a>
 {#if element}
+  <div id="background">
   <div class="card">
+    <span id="close" on:click={() => element = undefined}>X</span>
     <div class="flex row align-centers section">
-      <h1 class="symbol">
+      <h1 class="symbol" style={`background-color: ${element.color};`}>
         {element.symbol}
       </h1>
       <div>
@@ -71,19 +52,43 @@
       <span class="fifty">Specific heat: {element.specificHeat}J/K/g</span>
     </div>
   </div>
+</div>
 {/if}
 
 <style>
+  #background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #444444EE;
+  }
   .card {
       border-radius: 60px 20px 20px 20px;
-      box-shadow: 0 0 25px #DDD;
+      box-shadow: 0 0 5px #DDD;
       padding: 10px;
       width: calc(100% - 40px);
       max-width: 450px;
       position: absolute;
       left: 50%;
+      top: 50px;
       transform: translateX(-50%);
       overflow-y: auto;
+      background-color: white;
+  }
+  #close {
+    float: right;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+  }
+  #close:hover, #close:focus {
+    background-color: #eee;
   }
   span {
     display: block;
@@ -96,7 +101,6 @@
     border-radius: 50px;
     font-size: 40px;
     font-weight: bolder;
-    background-color: #DDD;
     text-align: center;
   }
   h1 {
