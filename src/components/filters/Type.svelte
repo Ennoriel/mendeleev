@@ -54,4 +54,7 @@
   :global(.focused) {
     box-shadow: 0 0 0 2px #0061df;
   }
+  :global(.selectContainer):hover {
+    box-shadow: 0 0 0 2px red;
+  }
 </style>

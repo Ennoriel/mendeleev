@@ -15,7 +15,6 @@
     padding: 0 16px;
     height: 38px;
     border-radius: 8px;
-    transition: box-shadow .4s;
     cursor: pointer;
 
     box-sizing: border-box;
@@ -28,6 +27,10 @@
   }
 
   button:hover {
-    box-shadow: 0 0 3px 1px var(--color-main);
+    box-shadow: 0 0 0 2px var(--color-main);
+  }
+  button:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px #0061df;
   }
 </style>

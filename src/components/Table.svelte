@@ -8,7 +8,7 @@
   let elements: ElementType[] = rawElements;
 
   $: {
-    let searchRe = new RegExp($store.search)
+    let searchRe = new RegExp($store.search, "i")
     elements.forEach(el => el.dontShow =
         ($store.type && $store.type !== el.type) ||
         ($store.phase && $store.phase !== el.phase) ||

@@ -3,11 +3,11 @@
 
   export let value: string;
 
-  $: searchRe = new RegExp($store.search, 'g')
+  $: searchRe = new RegExp(`(${$store.search})`, 'gi')
 </script>
 
 {#if $store.search && searchRe.test(value)}
-  {@html value.replace(searchRe, `<span class="strong">${$store.search}</span>`)}
+  {@html value.replace(searchRe, `<span class="strong">$1</span>`)}
 {:else}
   {value}
 {/if}

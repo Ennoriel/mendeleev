@@ -14,8 +14,14 @@
     height: 38px;
     width: 100px;
     border-radius: 8px;
-    transition: box-shadow .4s;
     box-sizing: border-box;
+  }
+  input:hover {
+    box-shadow: 0 0 0 2px var(--color-main);
+  }
+  input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px #0061df;
   }
 
   @media(max-width: 600px) {
