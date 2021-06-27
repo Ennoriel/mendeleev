@@ -10,6 +10,7 @@
 </script>
 
 <script lang="ts">
+  import { base } from '$app/paths';
   import { onMount } from 'svelte';
   import type { Element as ElementType } from "../types/Element.type";
   import { default as rawElements } from '../elements.json'; 
@@ -24,7 +25,7 @@
   })
 </script>
 
-<a href="/">Go back to the table</a>
+<a href={`${base}/`}>Go back to the table</a>
 {#if element}
   <div class="card">
     <div class="flex row align-centers section">

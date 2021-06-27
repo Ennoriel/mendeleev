@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import type { Element } from "../types/Element.type";
   import HighlightSearch from "./HighlightSearch.svelte";
 
@@ -22,7 +23,7 @@
 
 {#if !element.dontShow}
   <a
-    href={`/${element.symbol}`}
+    href={`${base}/${element.symbol}/`}
     style={`color: ${type.get(element.type)};`}
   >
     <span class="symbol"><HighlightSearch value={element.symbol}/></span>
