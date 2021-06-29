@@ -29,12 +29,18 @@
 		display: flex;
 		justify-content: space-evenly	;
 		align-items: center;
-		margin: 0;
+		margin: 0 auto;
 	}
 
 	@media(max-width: 600px) {
 		.hide {
 			display: none;
+		}
+	}
+	@media(min-width: 1000px) {
+		nav {
+			width: 1000px;
+			left: calc(50% - 500px)
 		}
 	}
 </style>

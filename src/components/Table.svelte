@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { store } from '$lib/store'
   import type { Element as ElementType } from "../types/Element.type";
   import { default as rawElements } from '../elements.json'; 
   import GridElement from "./GridElement.svelte";
-  import ListElement from "./ListElement.svelte";
-	import { store } from '$lib/store'
+  import Popup from "./Popup.svelte";
   
   let elements: ElementType[] = rawElements;
 
@@ -16,17 +16,37 @@
     )
     elements = elements
   }
+
+  import { quintOut } from 'svelte/easing';
+	import { crossfade } from 'svelte/transition';
+
+  const [send, receive] = crossfade({
+    duration: 600,
+
+    fallback(node, params) {
+      return {
+        duration: 600,
+        easing: quintOut,
+        css: t => `
+          transform: scale(${t});
+          opacity: ${t}
+        `
+      };
+    }
+  });
+
+  $: elements = elements
 </script>
 
 <div id="table" class={$store.display}>
-  {#each elements as element}
-    {#if $store.display === "grid"}
-      <GridElement {element}/>
-    {:else}
-      <ListElement {element}/>
-    {/if}
+  {#each elements as element (element.atomicNumber)}
+    <GridElement bind:element display={$store.display} {receive} {send}/>
+  {/each}
+  {#each elements.filter(element => element.focus === true) as element (element.atomicNumber)}
+    <Popup bind:element {receive} {send}/>
   {/each}
 </div>
+
 
 <style>
   #table {

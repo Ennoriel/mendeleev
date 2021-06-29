@@ -5,7 +5,7 @@
   const PHASES = [
     "Liquid",
     "Solid",
-    "Gaz",
+    "Gas",
     "Artificial",
   ].map(phase => ({label: phase, value: phase}))
 

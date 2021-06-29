@@ -29,5 +29,6 @@ export type Element = {
   numberofValence: number | string,
 
   dontShow?: boolean,
-  color: string
+  color: string,
+  focus?: boolean
 };

@@ -1,14 +1,39 @@
-<script lang="ts">
-  import { base } from '$app/paths';
+<script lang="ts">	import { onMount } from 'svelte';
+  import { store } from '$lib/store';
   import type { Element as ElementType } from "../types/Element.type";
 
   export let element: ElementType;
+  export let receive;
+  export let send;
+  let oldFocusedEl
+  
+  const focus = el => {
+    oldFocusedEl = document.activeElement;
+    el.focus();
+  }
+
+  const close = () => {
+    oldFocusedEl.focus();
+    element.focus = false;
+  }
+
+  const handleKeydown = e => {
+    if (e.keyCode === 27) close()
+    if (e.keyCode === 13) close()
+    if (e.keyCode === 81) close()
+    e.preventDefault()
+  }
 </script>
 
-{#if element}
-  <div id="background">
-  <div class="card">
-    <span id="close" on:click={() => element = undefined}>X</span>
+<svelte:window on:keydown={handleKeydown}/>
+
+<div id="background">
+  <div
+    class="card"
+    in:receive={$store.display === "grid" ? {key: element.atomicNumber} : {}}
+    out:send={$store.display === "grid" ? {key: element.atomicNumber} : {}}
+  >
+    <button id="close" use:focus on:click={close}>X</button>
     <div class="flex row align-centers section">
       <h1 class="symbol" style={`background-color: ${element.color};`}>
         {element.symbol}
@@ -53,7 +78,6 @@
     </div>
   </div>
 </div>
-{/if}
 
 <style>
   #background {
@@ -65,30 +89,31 @@
     background-color: #444444EE;
   }
   .card {
-      border-radius: 60px 20px 20px 20px;
-      box-shadow: 0 0 5px #DDD;
-      padding: 10px;
-      width: calc(100% - 40px);
-      max-width: 450px;
-      position: absolute;
-      left: 50%;
-      top: 50px;
-      transform: translateX(-50%);
-      overflow-y: auto;
-      background-color: white;
+    border-radius: 60px 20px 20px 20px;
+    padding: 10px;
+    width: calc(100% - 60px);
+    max-width: 450px;
+    position: absolute;
+    left: calc(50% - min(calc(100% - 40px), 470px) / 2);
+    height: calc(100vh - 60px);
+    max-height: 500px;
+    top: calc(50vh - min(calc(100vh - 40px), 520px) / 2);
+    overflow-y: auto;
+    background-color: white;
   }
   #close {
     float: right;
     cursor: pointer;
     width: 30px;
     height: 30px;
-    line-height: 30px;
     border-radius: 5px;
     font-weight: bold;
     text-align: center;
+    background-color: white;
+    border: none;
   }
   #close:hover, #close:focus {
-    background-color: #eee;
+    background-color: #ddd;
   }
   span {
     display: block;
